@@ -2,34 +2,24 @@ package uk.co.kenfos
 
 import kotlin.math.abs
 
-fun calculateTotalDistance(input: List<List<Int>>): Int {
-    val columns = splitLists(input)
-    val firstColumn = columns.first().sorted()
-    val secondColumn = columns.last().sorted()
+typealias IntegerPair = Pair<Int, Int>
+typealias IntegerColumn = List<Int>
 
-    return firstColumn.zip(secondColumn).sumOf { pair -> abs(pair.first - pair.second) }
+fun calculateTotalDistance(input: List<IntegerPair>): Int {
+    val (firstColumn, secondColumn) = splitToColumns(input).let { Pair(it.first.sorted(), it.second.sorted()) }
+
+    return firstColumn.zip(secondColumn).sumOf { (first, second) -> abs(first - second) }
 }
 
-fun calculateSimilarityScore(input: List<List<Int>>): Int {
-    val columns = splitLists(input)
-    val firstColumn = columns.first()
-    val secondColumn = columns.last()
-    val secondColumnCount = countItems(secondColumn)
+fun calculateSimilarityScore(input: List<IntegerPair>): Int {
+    val (firstColumn, secondColumn) = splitToColumns(input)
+    val secondColumnFrequencies = secondColumn.groupingBy { it }.eachCount()
 
-    return firstColumn.sumOf { (secondColumnCount[it] ?: 0) * it }
+    return firstColumn.sumOf { secondColumnFrequencies.getOrDefault(key = it, defaultValue = 0) * it }
 }
 
-private fun splitLists(input: List<List<Int>>): List<List<Int>> {
-    val initialValue = listOf<List<Int>>(emptyList(), emptyList())
+private fun splitToColumns(input: List<IntegerPair>): Pair<IntegerColumn, IntegerColumn> {
+    val initialValue = Pair<IntegerColumn, IntegerColumn>(emptyList(), emptyList())
 
-    return input.fold(initialValue) { acc, (first, second) -> listOf(acc.first().plus(first), acc.last().plus(second)) }
-}
-
-private fun countItems(secondColumn: List<Int>): Map<Int, Int> {
-    val initialValue = mutableMapOf<Int, Int>()
-
-    return secondColumn.fold(initialValue) { acc, item ->
-        acc[item] = acc.getOrDefault(item, 0) + 1
-        acc
-    }
+    return input.fold(initialValue) { acc, (first, second) -> Pair(acc.first.plus(first), acc.second.plus(second)) }
 }

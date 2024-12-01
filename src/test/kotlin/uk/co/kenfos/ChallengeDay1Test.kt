@@ -6,15 +6,16 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ChallengeDay1Test {
-    private val whitespace = "\\s+".toRegex()
+    private val filePath = "src/test/resources/day1.txt"
+    private val whitespace = """\s+""".toRegex()
 
     private val input = listOf(
-        listOf(3, 4),
-        listOf(4, 3),
-        listOf(2, 5),
-        listOf(1, 3),
-        listOf(3, 9),
-        listOf(3, 3),
+        Pair(3, 4),
+        Pair(4, 3),
+        Pair(2, 5),
+        Pair(1, 3),
+        Pair(3, 9),
+        Pair(3, 3),
     )
 
     @Test
@@ -37,7 +38,9 @@ class ChallengeDay1Test {
         assertEquals(23981443, calculateSimilarityScore(getFileContent()))
     }
 
-    private fun getFileContent(): List<List<Int>> {
-        return Path("src/test/resources/day1.txt").readLines().map { line -> line.split(whitespace).map { it.toInt() } }
+    private fun getFileContent(): List<Pair<Int, Int>> {
+        return Path(filePath)
+            .readLines()
+            .map { line -> line.split(whitespace).let { Pair(it.first().toInt(), it.last().toInt()) } }
     }
 }
