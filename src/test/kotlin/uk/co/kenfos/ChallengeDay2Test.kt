@@ -1,5 +1,6 @@
 package uk.co.kenfos
 
+import java.lang.System.*
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
 import kotlin.test.Test
@@ -24,18 +25,18 @@ class ChallengeDay2Test {
 
     @Test
     fun `calculates how many reports are safe from file input`() {
-        val input = Path(filePath).readLines().joinToString(separator = System.lineSeparator())
+        val input = Path(filePath).readLines().joinToString(separator = lineSeparator())
         assertEquals(282, countSafeReports(input))
     }
 
     @Test
     fun `calculates how many reports are safe when problem dampener is active`() {
-        assertEquals(4, countSafeReports(input, ProblemDampener(active = true)))
+        assertEquals(4, countSafeReports(input, problemDampener = true))
     }
 
     @Test
     fun `calculates how many reports are safe from file input when problem dampener is active`() {
-        val input = Path(filePath).readLines().joinToString(separator = System.lineSeparator())
-        assertEquals(349, countSafeReports(input, ProblemDampener(active = true)))
+        val input = Path(filePath).readLines().joinToString(separator = lineSeparator())
+        assertEquals(349, countSafeReports(input, problemDampener = true))
     }
 }
