@@ -25,17 +25,17 @@ class ChallengeDay3Test {
 
     @Test
     fun `calculates multiplication instructions with conditional statements`() {
-        assertEquals(48, calculateMultiplicationInstructions(input2, conditionalStatements = true))
+        assertEquals(48, calculateMultiplicationInstructions(input2, includeConditionalStatements = true))
     }
 
     @Test
     fun `calculates multiplication instructions with conditional statements and a final don't statement`() {
-        assertEquals(88, calculateMultiplicationInstructions(input3, conditionalStatements = true))
+        assertEquals(88, calculateMultiplicationInstructions(input3, includeConditionalStatements = true))
     }
 
     @Test
-    fun `calculates multiplication instructions with conditional statements from file`() {
+    fun `calculates multiplication instructions with conditional statements from file input`() {
         val fileInput = Path(filePath).readLines().joinToString()
-        assertEquals(82857512, calculateMultiplicationInstructions(fileInput, conditionalStatements = true))
+        assertEquals(82857512, calculateMultiplicationInstructions(fileInput, includeConditionalStatements = true))
     }
 }
