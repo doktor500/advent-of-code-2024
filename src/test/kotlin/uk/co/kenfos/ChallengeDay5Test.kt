@@ -6,7 +6,7 @@ import kotlin.io.path.readLines
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ChallengeDay5 {
+class ChallengeDay5Test {
     private val filePath = "src/test/resources/day5.txt"
     private val input = """
         47|53
